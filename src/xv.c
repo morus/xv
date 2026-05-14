@@ -2083,7 +2083,7 @@ static void cmdSyntax(int i)
 #ifdef HAVE_WEBP
   VersionInfoWEBP();
 #endif
-  
+
   /* pbm/pgm/ppm support is native, not via pbmplus/netpbm libraries */
   fprintf(stderr, "\n");
 
@@ -3553,7 +3553,9 @@ int ReadPicFile(char *fname, int ftype, PICINFO *pinfo, int quick)
 
   }
 
-  reorient_image(pinfo);
+  if (rv) {
+      reorient_image(pinfo);
+  }
   return rv;
 }
 
@@ -5148,4 +5150,3 @@ static void makeFontName(char *buf, int buf_size, int is_mono, int font_num)
 
   /* fprintf(stderr, "makeFontName, mono %d num %d -> %s\n", is_mono, font_num, buf); */
 }
-
