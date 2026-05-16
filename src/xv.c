@@ -2860,9 +2860,9 @@ ms_auto_no:
   SetISTR(ISTR_FORMAT, pinfo.fullInfo);
   strcpy(formatStr, pinfo.shrtInfo);
   picComments = pinfo.comment;
-  ChangeCommentText();
   picExifInfo = pinfo.exifInfo;
   picExifInfoSize = pinfo.exifInfoSize;
+  ChangeCommentText();
 
   for (i=0; i<256; i++) {
     rMap[i] = pinfo.r[i];

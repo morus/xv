@@ -30,6 +30,11 @@
 #define BUTTW2 (60 * dpiMult)
 #define BUTTW3 (110 * dpiMult)
 #define BUTTH  (24 * dpiMult)
+#ifdef HAVE_EXIF
+  #define CMNT_LINES 60
+#else
+  #define CMNT_LINES 6
+#endif
 
 #define TOPMARGIN (30 * dpiMult) /* from top of window to top of text window */
 #define BOTMARGIN (5*dpiMult + BUTTH + 5*dpiMult) /* room for a row of buttons at bottom */
@@ -251,7 +256,7 @@ void CreateTextWins(const char *geom, const char *cmtgeom)
 
   defwide = 80 * mfwide + 2*LRMARGINS + (8 + 20) * dpiMult;   /* -ish */
   defhigh = 24 * mfhigh + TOPMARGIN + BOTMARGIN + (8 + 20) * dpiMult;   /* ish */
-  cmthigh = 6  * mfhigh + TOPMARGIN + BOTMARGIN + (8 + 20) * dpiMult;   /* ish */
+  cmthigh = CMNT_LINES * mfhigh + TOPMARGIN + BOTMARGIN + (8 + 20) * dpiMult;   /* ish */
 
   /* creates *all* textview windows at once */
 
@@ -535,9 +540,26 @@ void ChangeCommentText(void)
 
   tv = &tinfo[CMTWIN];
 
+#ifdef HAVE_EXIF
+  if (tv->freeonclose && tv->text) {
+    free((void*)tv->text);
+    tv->text = NULL;
+    tv->freeonclose = 0;
+  }
+  if (picExifInfo) {
+    tv->text = ExifComment(picComments);
+    tv->freeonclose = tv->text ? 1 : 0;
+  }
+  else {
+    tv->text        = picComments;
+    tv->freeonclose = 0;
+  }
+#else
   tv->text        = picComments;
-  tv->textlen     = (tv->text) ? strlen(tv->text) : 0;
   tv->freeonclose = 0;
+#endif
+
+  tv->textlen     = (tv->text) ? strlen(tv->text) : 0;
 
   if (strlen(fullfname))
     snprintf(tv->title, TITLELEN, "File: '%s'", BaseName(fullfname));
