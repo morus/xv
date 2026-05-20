@@ -3659,7 +3659,7 @@ static void genIcon(BROWINFO *br, BFIL *bf)
    *      replace this icon with the BF_UNKNOWN, or BF_ERR icons
    */
 
-  PICINFO pinfo;
+  PICINFO pinfo = { .orientation = ORIENT_NONE };
   int     i, filetype;
   double  wexpand,hexpand;
   int     iwide, ihigh;
