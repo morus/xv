@@ -72,6 +72,7 @@ set(xv_sources
 	xvdial.c
 	xvdir.c
 	xvevent.c
+	xvexif.c
 	xvfits.c
 	xvg3.c
 	xvgam.c

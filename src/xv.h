@@ -2063,6 +2063,7 @@ void OpenTextView          PARM((const char *, int, const char *, int));
 void OpenCommentText       PARM((void));
 void CloseCommentText      PARM((void));
 void ChangeCommentText     PARM((void));
+char* ExifComment          PARM((char* comment));
 
 void ShowLicense           PARM((void));
 void ShowKeyHelp           PARM((void));
