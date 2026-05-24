@@ -51,12 +51,14 @@ char* ExifComment(char* comment) {
   char* fullComment = malloc(size);
   if (fullComment == NULL) {
     fprintf(stderr, "could not allocate memory for exif comment\n");
+    exif_data_free(exifData);
     return NULL;
   }
 
   strcpy(fullComment, comment ? comment : "");
   strcat(fullComment, exifTitle);
   exif_data_foreach_content(exifData, exifAddContent, fullComment);
+  exif_data_free(exifData);
   return fullComment;
 }
 
