@@ -3015,7 +3015,7 @@ static int doPadBggen(char *str, int wide, int high, int opaque, int omode)
   int i;
   byte *bgpic24;
   char syscmd[512], fname[128], errstr[512 + 128];
-  PICINFO pinfo;
+  PICINFO pinfo = { .orientation = ORIENT_NONE };
 
   /* returns 0 on error, 1 if successful */
 
@@ -3097,7 +3097,7 @@ static int doPadLoad(char *str, int wide, int high, int opaque, int omode)
   int i;
   byte *bgpic24;
   char loadName[256];
-  PICINFO pinfo;
+  PICINFO pinfo = { .orientation = ORIENT_NONE };
 
   /* returns 0 on error, 1 if successful */
 
